@@ -8,28 +8,28 @@ on:
   #permite executar de forma manual
   workflow_dispatch:
 #sequenias de etapas 
-  jobs:
-    #CI/CD simples, então declara no mesmo wokrflow, cria dois jobs
-    ci:
-      #agente de executacao, em qual ambiente
-      runs-on: ubuntu-latest
-      #passos de executação da pipeline
-      steps:
-        - name: Autenticar no Docker Hub
-          run: echo "Executando o comando Docker Login"
-        - name: Construção da imagem Docker
-          run: echo "Executando o comando Docker Build"
-        - name: Envio da imagem Docker
-          run: echo "Eecutando o comando Docker push"
+jobs:
+  #CI/CD simples, então declara no mesmo wokrflow, cria dois jobs
+  ci:
+    #agente de executacao, em qual ambiente
+    runs-on: ubuntu-latest
+    #passos de executação da pipeline
+    steps:
+      - name: Autenticar no Docker Hub
+        run: echo "Executando o comando Docker Login"
+      - name: Construção da imagem Docker
+        run: echo "Executando o comando Docker Build"
+      - name: Envio da imagem Docker
+        run: echo "Eecutando o comando Docker push"
 
-    cd:
-      #agente de executacao, em qual ambiente
-      runs-on: ubuntu-latest
-      #passos de executação da pipeline
-      steps:
-        - name: Autenticar na AWS
-          run: echo "Executando o comando aws configure"
-        - name: Construção o Kubectl
-          run: echo "Executando o comando aws eks update-kubeconfig"
-        - name: Deploy dos manifestos no Kubernets
-          run: echo "Eecutando o comando kubectl apply"
+  cd:
+    #agente de executacao, em qual ambiente
+    runs-on: ubuntu-latest
+    #passos de executação da pipeline
+    steps:
+      - name: Autenticar na AWS
+        run: echo "Executando o comando aws configure"
+      - name: Construção o Kubectl
+        run: echo "Executando o comando aws eks update-kubeconfig"
+      - name: Deploy dos manifestos no Kubernets
+        run: echo "Eecutando o comando kubectl apply"
