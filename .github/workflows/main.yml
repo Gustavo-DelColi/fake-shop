@@ -25,6 +25,8 @@ jobs:
   cd:
     #agente de executacao, em qual ambiente
     runs-on: ubuntu-latest
+    #depende do job CI, executa depois do CI
+    needs: [ci]
     #passos de executação da pipeline
     steps:
       - name: Autenticar na AWS
