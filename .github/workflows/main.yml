@@ -40,6 +40,10 @@ jobs:
     runs-on: ubuntu-latest
     #depende do job CI, executa depois do CI
     needs: [ci]
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
     #passos de executação da pipeline
     steps:
       - name: Obter o código do projeto
@@ -53,7 +57,13 @@ jobs:
           aws-region: us-east-2
 
       - name: Configurar o Kubectl
-        run: aws eks update-kubeconfig --name aula-k8s
-
+        # run: aws eks update-kubeconfig --name aula-k8s
+        run: echo "Executando o comando aws eks update-kubeconfig"
+        
       - name: Deploy dos manifestos no Kubernets
-        run: echo "Eecutando o comando kubectl apply"
+        uses: Azure/k8s-deploy@v5
+        with:
+          manifests: |
+            ./k8s/deployment.yaml
+          images: |
+            gustavodelcoli/fake-shop:v${{ github.run_number }}
