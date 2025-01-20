@@ -54,6 +54,8 @@ kind: Deployment
 metadata:
   name: fakeshop
 spec:
+  # numero de replicas do
+  replicas: 4
   #seleciona labels declaradas no metadata  
   selector: 
     #regra de selecao da label
@@ -63,6 +65,10 @@ spec:
   template: 
     # nao declara de novo, vai se dinamico
     metadata: 
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '5000'
+        prometheus.io/path: '/metrics'
       labels:
         #precisa mesmo name do metadata
         app: fakeshop 
